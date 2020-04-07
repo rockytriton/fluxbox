@@ -321,8 +321,8 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
     *logger << "root_colormap_installed" << endl; sleep(2);
     root_colormap_installed = true;
 
-    *logger << "root theme" << endl; sleep(2);
     m_root_theme.reset(new RootTheme(imageControl()));
+
     *logger << "reconfigTheme" << endl; sleep(2);
     m_root_theme->reconfigTheme();
     *logger << "setAlpha" << endl; sleep(2);
@@ -331,10 +331,7 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
     unfocusedWinFrameTheme()->setAlpha(*resource.unfocused_alpha);
     m_menutheme->setAlpha(*resource.menu_alpha);
 
-    *logger << "clampMenuDelay" << endl; sleep(2);
     clampMenuDelay(*resource.menu_delay);
-
-    *logger << "set dilay" << endl; sleep(2);
 
     m_menutheme->setDelay(*resource.menu_delay);
 
@@ -343,7 +340,6 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
             FbTk::MemFun(*this, &BScreen::focusedWinFrameThemeReconfigured));
 
 
-    *logger << "renderGeomWindow" << endl; sleep(2);
     renderGeomWindow();
     *logger << "renderPosWindow" << endl; sleep(2);
     renderPosWindow();

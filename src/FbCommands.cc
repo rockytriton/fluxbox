@@ -58,6 +58,7 @@ using std::ios;
 
 #include <unistd.h>
 using std::endl;
+using std::cout;
 extern std::ofstream *logger;
 
 namespace {
@@ -131,7 +132,7 @@ int ExecuteCmd::run() {
     return spawnlp(P_NOWAIT, comspec, comspec, "/c", m_cmd.c_str(), static_cast<void*>(NULL));
 #else
     pid_t pid = fork();
-    *logger << "forked pid: " << pid << endl; sleep(2);
+    *logger << "forked pid: " << pid << endl; // sleep(2);
 
     if (pid)
         return pid;
@@ -150,7 +151,7 @@ int ExecuteCmd::run() {
     }
 
 
-    *logger << "display: " << display << endl; sleep(2);
+    //*logger << "display: " << display << endl; sleep(2);
 
     // strip away the '.screen'
     size_t dot = display.rfind(':');
@@ -169,15 +170,16 @@ int ExecuteCmd::run() {
     if (!shell)
         shell = "/bin/sh";
 
-    *logger << "shell: " << shell << endl; sleep(2);
+    //*logger << "shell: " << shell << endl; sleep(2);
 
     setsid();
 
-    *logger << "execl: " << m_cmd << endl; sleep(2);
+    //*logger << "execl: " << m_cmd << endl; sleep(2);
+    cout << "EXEC: DISPLAY=" << display << " " m_cmd << endl;
 
     int el = execl(shell, shell, "-c", m_cmd.c_str(), static_cast<void*>(NULL));
 
-    *logger << "exit: " << el << endl; sleep(2);
+    //*logger << "exit: " << el << endl; sleep(2);
 
     exit(EXIT_SUCCESS);
 

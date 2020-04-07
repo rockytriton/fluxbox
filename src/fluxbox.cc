@@ -413,7 +413,8 @@ Fluxbox::Fluxbox(int argc, char **argv,
         }
     }
 
-    *logger << "0" << endl; sleep(2);
+
+    cout << "LOADING..." << endl;
 
     // create screens
     for (i = 0; i < static_cast<int>(screens.size()); i++) {
@@ -434,7 +435,6 @@ Fluxbox::Fluxbox(int argc, char **argv,
         // add to our list
         m_screens.push_back(screen);
     }
-    *logger << "1" << endl; sleep(2);
 
     if (m_screens.empty()) {
         throw _FB_CONSOLETEXT(Fluxbox, ErrorNoScreens,
