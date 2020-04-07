@@ -155,7 +155,7 @@ void setupSignalHandling() {
 
 }
 
-ofstream *logger;
+std::ofstream *logger;
 
 int main(int argc, char **argv) {
 
