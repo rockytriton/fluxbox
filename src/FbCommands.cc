@@ -132,7 +132,7 @@ int ExecuteCmd::run() {
     return spawnlp(P_NOWAIT, comspec, comspec, "/c", m_cmd.c_str(), static_cast<void*>(NULL));
 #else
     pid_t pid = fork();
-    cerr << "forked pid: " << pid << endl; // sleep(2);
+    *logger << "forked pid: " << pid << endl; // sleep(2);
 
     if (pid)
         return pid;
@@ -175,7 +175,7 @@ int ExecuteCmd::run() {
     setsid();
 
     //*logger << "execl: " << m_cmd << endl; sleep(2);
-    cerr << "EXEC: DISPLAY=" << display << " " << m_cmd << endl;
+    *logger << "EXEC: DISPLAY=" << display << " " << m_cmd << endl;
 
     int el = execl(shell, shell, "-c", m_cmd.c_str(), static_cast<void*>(NULL));
 
