@@ -126,6 +126,7 @@ using std::mem_fun;
 using std::equal_to;
 using std::hex;
 using std::dec;
+using std::cout;
 
 extern std::ofstream *logger;
 
