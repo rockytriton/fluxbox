@@ -24,7 +24,7 @@
 #include "version.h"
 #include "defaults.hh"
 #include "cli.hh"
-
+#include <unistd.h>
 #include "FbTk/I18n.hh"
 #include "FbTk/StringUtil.hh"
 
@@ -177,6 +177,15 @@ int main(int argc, char **argv) {
     ofstream log_file(opts.log_filename.c_str());
 
     _FB_USES_NLS;
+
+    std::cout << "TEST COUT MSG " << std::endl;
+    log_file << "LOG MSG" << endl;
+
+    cout << _FB_CONSOLETEXT(main, LoggingTo, "Logging to", "Logging to a file") 
+            << ": " 
+            << opts.log_filename << endl;
+
+    sleep(5);
 
     // setup log file
     if (log_file.is_open()) {
