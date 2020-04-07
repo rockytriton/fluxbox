@@ -175,7 +175,7 @@ int ExecuteCmd::run() {
     setsid();
 
     //*logger << "execl: " << m_cmd << endl; sleep(2);
-    cout << "EXEC: DISPLAY=" << display << " " m_cmd << endl;
+    cout << "EXEC: DISPLAY=" << display << " " << m_cmd << endl;
 
     int el = execl(shell, shell, "-c", m_cmd.c_str(), static_cast<void*>(NULL));
 
