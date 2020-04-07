@@ -415,7 +415,7 @@ Fluxbox::Fluxbox(int argc, char **argv,
     }
 
 
-    cout << "LOADING..." << endl;
+    cerr << "LOADING..." << endl;
 
     // create screens
     for (i = 0; i < static_cast<int>(screens.size()); i++) {

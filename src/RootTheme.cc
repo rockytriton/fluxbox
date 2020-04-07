@@ -51,6 +51,7 @@
 #endif
 
 #include <unistd.h>
+using std::cerr;
 using std::endl;
 extern std::ofstream *logger;
 
