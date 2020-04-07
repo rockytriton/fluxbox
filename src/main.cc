@@ -155,6 +155,8 @@ void setupSignalHandling() {
 
 }
 
+ofstream *logger;
+
 int main(int argc, char **argv) {
 
     FbTk::I18n::init(0);
@@ -175,12 +177,9 @@ int main(int argc, char **argv) {
     streambuf *errbuf = 0;
 
     ofstream log_file(opts.log_filename.c_str());
+    logger = &log_file;
 
     _FB_USES_NLS;
-
-    log_file << "LOG MSG" << endl;
-
-    sleep(5);
 
     // setup log file
     if (log_file.is_open()) {
@@ -205,6 +204,8 @@ int main(int argc, char **argv) {
 
     try {
         log_file << "RESETTING" << endl; sleep(2);
+
+
 
         fluxbox.reset(new Fluxbox(argc, argv,
                     opts.session_display,

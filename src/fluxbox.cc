@@ -72,6 +72,8 @@
 #include <X11/Xatom.h>
 #include <X11/keysym.h>
 
+#include <unistd.h>
+
 // X extensions
 #ifdef SHAPE
 #include <X11/extensions/shape.h>
@@ -124,6 +126,8 @@ using std::mem_fun;
 using std::equal_to;
 using std::hex;
 using std::dec;
+
+extern std::ofstream *logger;
 
 using namespace FbTk;
 
@@ -294,7 +298,11 @@ Fluxbox::Fluxbox(int argc, char **argv,
     m_active_screen.mouse = 0;
     m_active_screen.key = 0;
 
+    *logger << "BEFORE DISPLAY" << endl; sleep(2);
+
     Display *disp = FbTk::App::instance()->display();
+
+    *logger << "AFTER DISPLAY" << endl; sleep(2);
 
     // setup X error handler
     XSetErrorHandler(handleXErrors);
