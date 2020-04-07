@@ -227,14 +227,12 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
     Fluxbox *fluxbox = Fluxbox::instance();
     Display *disp = fluxbox->display();
 
-    *logger << "initAtoms" << endl; sleep(2);
     initAtoms(disp);
 
     // Create the first one, initXinerama will expand this if needed.
     m_head_areas.resize(1);
     m_head_areas[0] = new HeadArea();
 
-    *logger << "initXinerama" << endl; sleep(2);
     initXinerama();
 
     // setup error handler to catch "screen already managed by other wm"
@@ -264,7 +262,6 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
                                 (unsigned char *) &bpid, 1);
 #endif // HAVE_GETPID
 
-    *logger << "rootWindow" << endl; sleep(2);
     // check if we're the first EWMH compliant window manager on this screen
     union { Atom atom; unsigned long ul; int i; } ignore;
     unsigned char *ret_prop;
@@ -333,8 +330,11 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
 
     clampMenuDelay(*resource.menu_delay);
 
+    *logger << "set dilay" << endl; sleep(2);
+
     m_menutheme->setDelay(*resource.menu_delay);
 
+    *logger << "focusedWinFrameThemeReconfigured" << endl; sleep(2);
     m_tracker.join(focusedWinFrameTheme()->reconfigSig(),
             FbTk::MemFun(*this, &BScreen::focusedWinFrameThemeReconfigured));
 
