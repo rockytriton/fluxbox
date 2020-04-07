@@ -50,6 +50,7 @@
   #include <string.h>
 #endif
 
+using std::endl;
 extern std::ofstream *logger;
 
 using std::string;
