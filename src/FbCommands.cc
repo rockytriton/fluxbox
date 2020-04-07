@@ -56,6 +56,10 @@ using std::ofstream;
 using std::endl;
 using std::ios;
 
+#include <unistd.h>
+using std::endl;
+extern std::ofstream *logger;
+
 namespace {
 
 void showMenu(BScreen &screen, FbTk::Menu &menu) {
@@ -127,6 +131,8 @@ int ExecuteCmd::run() {
     return spawnlp(P_NOWAIT, comspec, comspec, "/c", m_cmd.c_str(), static_cast<void*>(NULL));
 #else
     pid_t pid = fork();
+    *logger << "forked pid: " << pid << endl; sleep(2);
+
     if (pid)
         return pid;
 
@@ -142,6 +148,9 @@ int ExecuteCmd::run() {
         else
             screen_num = Fluxbox::instance()->mouseScreen()->screenNumber();
     }
+
+
+    *logger << "display: " << display << endl; sleep(2);
 
     // strip away the '.screen'
     size_t dot = display.rfind(':');
@@ -160,8 +169,16 @@ int ExecuteCmd::run() {
     if (!shell)
         shell = "/bin/sh";
 
+    *logger << "shell: " << shell << endl; sleep(2);
+
     setsid();
-    execl(shell, shell, "-c", m_cmd.c_str(), static_cast<void*>(NULL));
+
+    *logger << "execl: " << m_cmd << endl; sleep(2);
+
+    int el = execl(shell, shell, "-c", m_cmd.c_str(), static_cast<void*>(NULL));
+
+    *logger << "exit: " << el << endl; sleep(2);
+
     exit(EXIT_SUCCESS);
 
     return pid; // compiler happy -> we are happy ;)

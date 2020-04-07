@@ -192,7 +192,6 @@ void RootTheme::reconfigTheme() {
     // Else parse background from style
     //
 
-    *logger << "setApplied" << endl; sleep(2); 
     m_background->setApplied();
 
     // handle background option in style
@@ -263,12 +262,9 @@ void RootTheme::reconfigTheme() {
         }
     }
 
-    *logger << "ExecuteCmd" << endl; sleep(2); 
     // call command with options
     FbCommands::ExecuteCmd exec(cmd, screenNum());
     m_first = false;
 
-    *logger << "execute" << endl; sleep(2); 
     exec.execute();
-    *logger << "executed" << endl; sleep(2); 
 }
