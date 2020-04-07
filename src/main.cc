@@ -178,12 +178,7 @@ int main(int argc, char **argv) {
 
     _FB_USES_NLS;
 
-    std::cout << "TEST COUT MSG " << std::endl;
     log_file << "LOG MSG" << endl;
-
-    cout << _FB_CONSOLETEXT(main, LoggingTo, "Logging to", "Logging to a file") 
-            << ": " 
-            << opts.log_filename << endl;
 
     sleep(5);
 
@@ -209,14 +204,18 @@ int main(int argc, char **argv) {
     FluxboxCli::updateConfigFilesIfNeeded(opts.rc_file);
 
     try {
+        log_file << "RESETTING" << endl; sleep(2);
 
         fluxbox.reset(new Fluxbox(argc, argv,
                     opts.session_display,
                     opts.rc_path,
                     opts.rc_file,
                     opts.xsync));
+        log_file << "RESET" << endl; sleep(2);
         setupSignalHandling();
+        log_file << "PREP LOOP" << endl; sleep(2);
         fluxbox->eventLoop();
+        log_file << "DONE LOOP" << endl; sleep(2);
         exitcode = EXIT_SUCCESS;
 
     } catch (out_of_range &oor) {
