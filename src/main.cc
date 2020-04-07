@@ -203,20 +203,17 @@ int main(int argc, char **argv) {
     FluxboxCli::updateConfigFilesIfNeeded(opts.rc_file);
 
     try {
-        log_file << "RESETTING" << endl; sleep(2);
-
-
 
         fluxbox.reset(new Fluxbox(argc, argv,
                     opts.session_display,
                     opts.rc_path,
                     opts.rc_file,
                     opts.xsync));
-        log_file << "RESET" << endl; sleep(2);
+                    
         setupSignalHandling();
-        log_file << "PREP LOOP" << endl; sleep(2);
+        
         fluxbox->eventLoop();
-        log_file << "DONE LOOP" << endl; sleep(2);
+        
         exitcode = EXIT_SUCCESS;
 
     } catch (out_of_range &oor) {

@@ -415,7 +415,8 @@ Fluxbox::Fluxbox(int argc, char **argv,
     }
 
 
-    cerr << "LOADING..." << endl;
+    cerr << "LOADING1..." << endl;
+    std::cout << "LOADING2..." << endl;
 
     // create screens
     for (i = 0; i < static_cast<int>(screens.size()); i++) {
@@ -455,9 +456,6 @@ Fluxbox::Fluxbox(int argc, char **argv,
 #ifdef REMEMBER
     addAtomHandler(new Remember()); // for remembering window attribs
 #endif // REMEMBER
-
-
-    *logger << "init screen" << endl; sleep(2);
 
     // init all "screens"
     STLUtil::forAll(m_screens, bind1st(mem_fun(&Fluxbox::initScreen), this));

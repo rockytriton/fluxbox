@@ -31,6 +31,8 @@
 #include <set>
 #include <iostream>
 
+std::ofstream *logger;
+
 namespace FbTk {
 
 App *App::s_app = 0;
@@ -50,8 +52,12 @@ App::App(const char *displayname):m_done(false), m_display(0) {
     const bool setmodifiers = XSetLocaleModifiers("@im=none");
     // this allows the use of std::string.c_str(), which returns 
     // a blank string, rather than a null string, so we make them equivalent
+
     if (displayname != 0 && displayname[0] == '\0')
         displayname = 0;
+
+    *logger << "DISPLAY: " << (displayname == 0 ? "NULL" : displayname) << std::endl;
+
     m_display = XOpenDisplay(displayname);
     if (!m_display) {
         if (displayname) {

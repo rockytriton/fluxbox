@@ -323,9 +323,7 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
 
     m_root_theme.reset(new RootTheme(imageControl()));
 
-    *logger << "reconfigTheme" << endl; sleep(2);
     m_root_theme->reconfigTheme();
-    *logger << "setAlpha" << endl; sleep(2);
 
     focusedWinFrameTheme()->setAlpha(*resource.focused_alpha);
     unfocusedWinFrameTheme()->setAlpha(*resource.unfocused_alpha);
@@ -335,13 +333,11 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
 
     m_menutheme->setDelay(*resource.menu_delay);
 
-    *logger << "focusedWinFrameThemeReconfigured" << endl; sleep(2);
     m_tracker.join(focusedWinFrameTheme()->reconfigSig(),
             FbTk::MemFun(*this, &BScreen::focusedWinFrameThemeReconfigured));
 
 
     renderGeomWindow();
-    *logger << "renderPosWindow" << endl; sleep(2);
     renderPosWindow();
     m_tooltip_window->setDelay(*resource.tooltip_delay);
 
@@ -352,7 +348,6 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
         addWorkspace();
     }
 
-    *logger << "m_workspaces_list" << endl; sleep(2);
     m_current_workspace = m_workspaces_list.front();
 
     m_windowmenu.reset(MenuCreator::createMenu("", *this));
@@ -369,7 +364,6 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
     m_configmenu->setInternalMenu();
     setupConfigmenu(*m_configmenu.get());
 
-    *logger << "first_desktop" << endl; sleep(2);
     // check which desktop we should start on
     int first_desktop = 0;
     if (m_state.restart) {
@@ -382,7 +376,6 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
 
     changeWorkspaceID(first_desktop);
 
-    *logger << "XFlush" << endl; sleep(2);
 #ifdef USE_SLIT
     if (opts & Fluxbox::OPT_SLIT) {
         Slit* slit = new Slit(*this, *layerManager().getLayer(ResourceLayer::DESKTOP), fluxbox->getSlitlistFilename().c_str());
