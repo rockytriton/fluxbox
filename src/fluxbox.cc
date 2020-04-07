@@ -298,11 +298,7 @@ Fluxbox::Fluxbox(int argc, char **argv,
     m_active_screen.mouse = 0;
     m_active_screen.key = 0;
 
-    *logger << "BEFORE DISPLAY" << endl; sleep(2);
-
     Display *disp = FbTk::App::instance()->display();
-
-    *logger << "AFTER DISPLAY" << endl; sleep(2);
 
     // setup X error handler
     XSetErrorHandler(handleXErrors);
@@ -319,7 +315,6 @@ Fluxbox::Fluxbox(int argc, char **argv,
     m_reconfig_timer.setCommand(FbTk::RefCount<FbTk::Command<void> >(reconfig_cmd));
     m_reconfig_timer.fireOnce(true);
 
-    *logger << "1" << endl; sleep(2);
 
     // xmodmap and other tools send a lot of MappingNotify events under some
     // circumstances ("keysym comma = comma semicolon" creates 4 or 5).
@@ -331,12 +326,10 @@ Fluxbox::Fluxbox(int argc, char **argv,
     m_key_reload_timer.setCommand(FbTk::RefCount<FbTk::Command<void> >(rh_cmd));
     m_key_reload_timer.fireOnce(true);
 
-    *logger << "2" << endl; sleep(2);
 
     if (xsync)
         XSynchronize(disp, True);
 
-    *logger << "3" << endl; sleep(2);
 
     s_singleton = this;
 
@@ -350,11 +343,8 @@ Fluxbox::Fluxbox(int argc, char **argv,
     XRRQueryExtension(disp, &s_randr_event_type, &randr_error_base);
 #endif // HAVE_RANDR
 
-    *logger << "4" << endl; sleep(2);
     load_rc();
-    *logger << "5" << endl; sleep(2);
     grab();
-    *logger << "6" << endl; sleep(2);
 
     if (! XSupportsLocale())
         cerr<<_FB_CONSOLETEXT(Fluxbox, WarningLocale, 
@@ -367,7 +357,6 @@ Fluxbox::Fluxbox(int argc, char **argv,
                               "XSetLocaleModifiers returned false")<<endl;
 
 
-    *logger << "7" << endl; sleep(2);
 #ifdef HAVE_GETPID
     m_fluxbox_pid = XInternAtom(disp, "_BLACKBOX_PID", False);
 #endif // HAVE_GETPID
@@ -376,14 +365,12 @@ Fluxbox::Fluxbox(int argc, char **argv,
     // setup theme manager to have our style file ready to be scanned
     FbTk::ThemeManager::instance().load(getStyleFilename(), getStyleOverlayFilename());
 
-    *logger << "8" << endl; sleep(2);
     // Create keybindings handler and load keys file
     // Note: this needs to be done before creating screens
     m_key.reset(new Keys);
     m_key->reconfigure();
     FbTk::MenuSearch::setMode(*m_config.menusearch);
 
-    *logger << "9" << endl; sleep(2);
     unsigned int opts = OPT_SLIT|OPT_TOOLBAR;
     vector<int> screens;
     int i;
@@ -392,7 +379,6 @@ Fluxbox::Fluxbox(int argc, char **argv,
     for (i = 0; i < ScreenCount(disp); i++)
         screens.push_back(i);
 
-    *logger << "10" << endl; sleep(2);
     // find out, on what "screens" fluxbox should run
     for (i = 1; i < m_argc; i++) {
         if (! strcmp(m_argv[i], "-screen")) {
@@ -427,15 +413,17 @@ Fluxbox::Fluxbox(int argc, char **argv,
         }
     }
 
-    *logger << "11" << endl; sleep(2);
+    *logger << "0" << endl; sleep(2);
 
     // create screens
     for (i = 0; i < static_cast<int>(screens.size()); i++) {
         std::string sc_nr = FbTk::StringUtil::number2String(screens[i]);
+    *logger << "creating screen" << endl; sleep(2);
         BScreen *screen = new BScreen(m_screen_rm.lock(),
                                       std::string("session.screen") + sc_nr,
                                       std::string("session.Screen") + sc_nr,
                                       screens[i], ::ResourceLayer::NUM_LAYERS, opts);
+    *logger << "created screen" << endl; sleep(2);
 
         // already handled
         if (! screen->isScreenManaged()) {
@@ -446,7 +434,7 @@ Fluxbox::Fluxbox(int argc, char **argv,
         // add to our list
         m_screens.push_back(screen);
     }
-    *logger << "12" << endl; sleep(2);
+    *logger << "1" << endl; sleep(2);
 
     if (m_screens.empty()) {
         throw _FB_CONSOLETEXT(Fluxbox, ErrorNoScreens,
@@ -467,17 +455,18 @@ Fluxbox::Fluxbox(int argc, char **argv,
     addAtomHandler(new Remember()); // for remembering window attribs
 #endif // REMEMBER
 
+
+    *logger << "init screen" << endl; sleep(2);
+
     // init all "screens"
     STLUtil::forAll(m_screens, bind1st(mem_fun(&Fluxbox::initScreen), this));
 
-    *logger << "13" << endl; sleep(2);
+    *logger << "1" << endl; sleep(2);
     XAllowEvents(disp, ReplayPointer, CurrentTime);
 
-    *logger << "14" << endl; sleep(2);
     //XSynchronize(disp, False);
     sync(false);
 
-    *logger << "15" << endl; sleep(2);
     m_reconfigure_wait = false;
 
     m_resourcemanager.unlock();
