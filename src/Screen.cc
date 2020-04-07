@@ -184,6 +184,7 @@ void initAtoms(Display* dpy) {
 } // end anonymous namespace
 
 
+extern std::ofstream *logger;
 
 
 BScreen::BScreen(FbTk::ResourceManager &rm,
@@ -226,12 +227,14 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
     Fluxbox *fluxbox = Fluxbox::instance();
     Display *disp = fluxbox->display();
 
+    *logger << "initAtoms" << endl; sleep(2);
     initAtoms(disp);
 
     // Create the first one, initXinerama will expand this if needed.
     m_head_areas.resize(1);
     m_head_areas[0] = new HeadArea();
 
+    *logger << "initXinerama" << endl; sleep(2);
     initXinerama();
 
     // setup error handler to catch "screen already managed by other wm"
@@ -261,6 +264,7 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
                                 (unsigned char *) &bpid, 1);
 #endif // HAVE_GETPID
 
+    *logger << "rootWindow" << endl; sleep(2);
     // check if we're the first EWMH compliant window manager on this screen
     union { Atom atom; unsigned long ul; int i; } ignore;
     unsigned char *ret_prop;
@@ -299,6 +303,8 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
             rootWindow().maxDepth());
 #endif // DEBUG
 
+    *logger << "registerWindow" << endl; sleep(2);
+
     FbTk::EventManager *evm = FbTk::EventManager::instance();
     evm->add(*this, rootWindow());
     Keys *keys = fluxbox->keys();
@@ -317,6 +323,7 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
     imageControl().installRootColormap();
     root_colormap_installed = true;
 
+    *logger << "root theme" << endl; sleep(2);
     m_root_theme.reset(new RootTheme(imageControl()));
     m_root_theme->reconfigTheme();
 
@@ -332,7 +339,9 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
             FbTk::MemFun(*this, &BScreen::focusedWinFrameThemeReconfigured));
 
 
+    *logger << "renderGeomWindow" << endl; sleep(2);
     renderGeomWindow();
+    *logger << "renderPosWindow" << endl; sleep(2);
     renderPosWindow();
     m_tooltip_window->setDelay(*resource.tooltip_delay);
 
@@ -343,6 +352,7 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
         addWorkspace();
     }
 
+    *logger << "m_workspaces_list" << endl; sleep(2);
     m_current_workspace = m_workspaces_list.front();
 
     m_windowmenu.reset(MenuCreator::createMenu("", *this));
@@ -359,6 +369,7 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
     m_configmenu->setInternalMenu();
     setupConfigmenu(*m_configmenu.get());
 
+    *logger << "first_desktop" << endl; sleep(2);
     // check which desktop we should start on
     int first_desktop = 0;
     if (m_state.restart) {
@@ -371,6 +382,7 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
 
     changeWorkspaceID(first_desktop);
 
+    *logger << "XFlush" << endl; sleep(2);
 #ifdef USE_SLIT
     if (opts & Fluxbox::OPT_SLIT) {
         Slit* slit = new Slit(*this, *layerManager().getLayer(ResourceLayer::DESKTOP), fluxbox->getSlitlistFilename().c_str());

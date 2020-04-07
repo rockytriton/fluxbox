@@ -461,9 +461,7 @@ Fluxbox::Fluxbox(int argc, char **argv,
     // init all "screens"
     STLUtil::forAll(m_screens, bind1st(mem_fun(&Fluxbox::initScreen), this));
 
-    *logger << "2" << endl; sleep(2);
     XAllowEvents(disp, ReplayPointer, CurrentTime);
-    *logger << "3" << endl; sleep(2);
 
     //XSynchronize(disp, False);
     sync(false);
@@ -528,13 +526,11 @@ void Fluxbox::initScreen(BScreen *screen) {
     join(screen->workspaceCountSig(), 
          FbTk::MemFun(*this, &Fluxbox::workspaceCountChanged));
 
-    *logger << "workspaceCountSig" << endl; sleep(2);
     // initiate atomhandler for screen specific stuff
     STLUtil::forAll(m_atomhandler, 
             CallMemFunWithRefArg<AtomHandler, BScreen&, void>(&AtomHandler::initForScreen, *screen));
     //STLUtil::forAll(m_atomhandler, bind2nd(mem_fun(&AtomHandler::initForScreen), *screen));
 
-    *logger << "initForScreen" << endl; sleep(2);
     FocusControl::revertFocus(*screen); // make sure focus style is correct
 
 }
