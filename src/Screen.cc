@@ -300,8 +300,6 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
             rootWindow().maxDepth());
 #endif // DEBUG
 
-    *logger << "registerWindow" << endl; sleep(2);
-
     FbTk::EventManager *evm = FbTk::EventManager::instance();
     evm->add(*this, rootWindow());
     Keys *keys = fluxbox->keys();
@@ -309,26 +307,25 @@ BScreen::BScreen(FbTk::ResourceManager &rm,
         keys->registerWindow(rootWindow().window(), *this,
                              Keys::GLOBAL|Keys::ON_DESKTOP);
                             
-    *logger << "setCursor" << endl; sleep(2); 
     rootWindow().setCursor(XCreateFontCursor(disp, XC_left_ptr));
 
-    *logger << "load_rc" << endl; sleep(2); 
     // load this screens resources
     fluxbox->load_rc(*this);
 
-    *logger << "ImageControl" << endl; sleep(2); 
     // setup image cache engine
     m_image_control.reset(new FbTk::ImageControl(scrn,
                                                  fluxbox->colorsPerChannel(),
                                                  fluxbox->getCacheLife(), fluxbox->getCacheMax()));
     *logger << "installRootColormap" << endl; sleep(2); 
     imageControl().installRootColormap();
+    *logger << "root_colormap_installed" << endl; sleep(2);
     root_colormap_installed = true;
 
     *logger << "root theme" << endl; sleep(2);
     m_root_theme.reset(new RootTheme(imageControl()));
-    m_root_theme->reconfigTheme();
     *logger << "reconfigTheme" << endl; sleep(2);
+    m_root_theme->reconfigTheme();
+    *logger << "setAlpha" << endl; sleep(2);
 
     focusedWinFrameTheme()->setAlpha(*resource.focused_alpha);
     unfocusedWinFrameTheme()->setAlpha(*resource.unfocused_alpha);
