@@ -30,6 +30,7 @@
 
 #include <set>
 #include <iostream>
+#include <fstream>
 
 std::ofstream *logger;
 
@@ -56,6 +57,7 @@ App::App(const char *displayname):m_done(false), m_display(0) {
     if (displayname != 0 && displayname[0] == '\0')
         displayname = 0;
 
+    std::cout << "DISPLAY: " << (displayname == 0 ? "NULL" : displayname) << std::endl;
     *logger << "DISPLAY: " << (displayname == 0 ? "NULL" : displayname) << std::endl;
 
     m_display = XOpenDisplay(displayname);
