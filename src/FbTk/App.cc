@@ -32,7 +32,7 @@
 #include <iostream>
 #include <fstream>
 
-extern std::ofstream *logger;
+//extern std::ofstream *logger;
 
 namespace FbTk {
 
@@ -58,7 +58,8 @@ App::App(const char *displayname):m_done(false), m_display(0) {
         displayname = 0;
 
     std::cout << "DISPLAY: " << (displayname == 0 ? "NULL" : displayname) << std::endl;
-    *logger << "DISPLAY: " << (displayname == 0 ? "NULL" : displayname) << std::endl;
+    std::cerr << "DISPLAY: " << (displayname == 0 ? "NULL" : displayname) << std::endl;
+    //*logger << "DISPLAY: " << (displayname == 0 ? "NULL" : displayname) << std::endl;
 
     m_display = XOpenDisplay(displayname);
     if (!m_display) {
