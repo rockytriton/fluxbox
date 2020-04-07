@@ -32,7 +32,7 @@
 #include <iostream>
 #include <fstream>
 
-std::ofstream *logger;
+extern ofstream *logger;
 
 namespace FbTk {
 
