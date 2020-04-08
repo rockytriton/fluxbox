@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
             case ConfigureNotify:
                 if (w != ev.xconfigure.width || h != ev.xconfigure.height) {
                     w = ev.xconfigure.width;
-                    h = ev.xconfigure.h;
+                    h = ev.xconfigure.height;
                     XClearWindow(d, ev.xany.window);
                     printf("Resized\n");
                 }
