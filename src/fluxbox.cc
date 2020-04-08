@@ -553,6 +553,7 @@ void Fluxbox::eventLoop() {
                     fbdbg<<"Fluxbox::eventLoop(): removing bad window from event queue"<<endl;
             } else {
                 last_bad_window = None;
+                fbdbg << "FB::Event Loop" << std::endl;
                 handleEvent(&e);
             }
         } else {
@@ -588,6 +589,7 @@ void Fluxbox::handleEvent(XEvent * const e) {
 
     _FB_USES_NLS;
     m_last_event = *e;
+    fbdbg << "FB::HandleEvents" << std::endl;
 
 
     // it is possible (e.g. during moving) for a window
@@ -1345,6 +1347,7 @@ void Fluxbox::timed_reconfigure() {
 }
 
 void Fluxbox::revertFocus() {
+    fbdbg << "FB::revertFocus" << std::endl;
 
     bool revert = m_active_screen.key && !m_showing_dialog;
     if (revert) {
