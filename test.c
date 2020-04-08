@@ -51,8 +51,9 @@ int main(int argc, char **argv) {
                 break;
 
             case Expose:
-                //XDrawLine(d, win, pen, 0, 0, w, h);
-                //XDrawLine(d, win, pen, w, 0, 0, h);
+                XDrawLine(d, win, pen, 0, 0, w, h);
+                XDrawLine(d, win, pen, w, 0, 0, h);
+                printf("Expose\n");
                 break;
 
             case ConfigureNotify:
