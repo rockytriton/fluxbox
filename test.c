@@ -44,8 +44,8 @@ int main(int argc, char **argv) {
     int done = 0;
 
     while(!done) { 
-        if (!XPending(disp)) continue;
-        
+        if (!XPending(d)) continue;
+
         XEvent ev;
         XNextEvent(d, &ev);
 
