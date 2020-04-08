@@ -539,6 +539,8 @@ void Fluxbox::eventLoop() {
 
     Display *disp = display();
 
+    fbdbg << "FB::eventLoop: 0x" << std::hex << (long)disp << std::dec << std::endl;
+
     while (!m_state.shutdown) {
 
         if (XPending(disp)) {
@@ -553,7 +555,6 @@ void Fluxbox::eventLoop() {
                     fbdbg<<"Fluxbox::eventLoop(): removing bad window from event queue"<<endl;
             } else {
                 last_bad_window = None;
-                fbdbg << "FB::Event Loop" << std::endl;
                 handleEvent(&e);
             }
         } else {

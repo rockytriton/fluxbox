@@ -73,6 +73,8 @@ App::App(const char *displayname):m_done(false), m_display(0) {
         }
     }
 
+    std::cout << "DISPLAY OPENED: 0x" << std::hex << (long)m_display << std::dec << std::endl;
+
     FbStringUtil::init();
 
     m_xim = 0;
