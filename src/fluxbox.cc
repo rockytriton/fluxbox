@@ -797,6 +797,7 @@ void Fluxbox::handleEvent(XEvent * const e) {
 
     } break;
     case FocusOut:{
+        fbdbg << "GOT FOCUS OUT..." << std::endl;
         // and here we ignore some window losing the special grab focus
         if (e->xfocus.mode == NotifyGrab ||
             e->xfocus.detail == NotifyPointer ||
@@ -809,7 +810,7 @@ void Fluxbox::handleEvent(XEvent * const e) {
             // we don't unfocus a moving window
             (!winclient || !winclient->fbwindow() ||
              !winclient->fbwindow()->isMoving())) {
-                 fbdbg << "FB::FocusOut 2" << std::endl;
+                 fbdbg << "FB::FocusOut 22" << std::endl;
             revertFocus();
              }
     }
@@ -929,7 +930,7 @@ void Fluxbox::windowDied(Focusable &focusable) {
 }
 
 void Fluxbox::rf() {
-    fbdbg << "FB::FocusOut 2" << std::endl;
+    fbdbg << "FB::FocusOut RF" << std::endl;
 }
 
 void Fluxbox::clientDied(Focusable &focusable) {
