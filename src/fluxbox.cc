@@ -549,8 +549,10 @@ void Fluxbox::eventLoop() {
 
             if (last_bad_window != None && e.xany.window == last_bad_window &&
                 e.type != DestroyNotify) { // we must let the actual destroys through
-                if (e.type == FocusOut)
+                if (e.type == FocusOut) {
+                    fbdbg << "FB::FocusOut" << std::endl;
                     revertFocus();
+                }
                 else
                     fbdbg<<"Fluxbox::eventLoop(): removing bad window from event queue"<<endl;
             } else {
@@ -806,8 +808,10 @@ void Fluxbox::handleEvent(XEvent * const e) {
              FocusControl::focusedWindow() == 0) &&
             // we don't unfocus a moving window
             (!winclient || !winclient->fbwindow() ||
-             !winclient->fbwindow()->isMoving()))
+             !winclient->fbwindow()->isMoving())) {
+                 fbdbg << "FB::FocusOut 2" << std::endl;
             revertFocus();
+             }
     }
         break;
     case ClientMessage:
@@ -944,6 +948,7 @@ void Fluxbox::clientDied(Focusable &focusable) {
         FocusControl::setFocusedWindow(0);
     } else if (FocusControl::expectingFocus() == &client) {
         FocusControl::setExpectingFocus(0);
+                 fbdbg << "FB::ExpectingFocus" << std::endl;
         revertFocus();
     }
 

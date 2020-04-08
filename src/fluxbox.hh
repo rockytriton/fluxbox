@@ -162,7 +162,8 @@ public:
     void timed_reconfigure();
     void revertFocus();
     void setShowingDialog(bool value) {
-        m_showing_dialog = value; if (!value) revertFocus();
+        m_showing_dialog = value; if (!value) {
+                 fbdbg << "FB::FocusOut 2" << std::endl; revertFocus(); }
     }
 
     bool isStartup() const       { return m_state.starting; }
