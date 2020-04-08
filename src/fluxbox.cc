@@ -928,6 +928,10 @@ void Fluxbox::windowDied(Focusable &focusable) {
         FocusControl::setFocusedFbWindow(0);
 }
 
+void Fluxbox::rf() {
+    fbdbg << "FB::FocusOut 2" << std::endl;
+}
+
 void Fluxbox::clientDied(Focusable &focusable) {
     WinClient &client = dynamic_cast<WinClient &>(focusable);
 

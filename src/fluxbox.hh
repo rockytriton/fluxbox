@@ -163,9 +163,10 @@ public:
     void revertFocus();
     void setShowingDialog(bool value) {
         m_showing_dialog = value; if (!value) {
-                 fbdbg << "FB::FocusOut 2" << std::endl; revertFocus(); }
+                 rf(); revertFocus(); }
     }
 
+    void rf();
     bool isStartup() const       { return m_state.starting; }
     bool isRestarting() const    { return m_state.restarting; }
     bool isShuttingDown() const  { return m_state.shutdown; }
