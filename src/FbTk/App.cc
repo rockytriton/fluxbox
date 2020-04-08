@@ -79,7 +79,8 @@ App::App(const char *displayname):m_done(false), m_display(0) {
 
     m_xim = 0;
     if (setmodifiers && FbStringUtil::haveUTF8()) {
-        m_xim = XOpenIM(m_display, NULL, NULL, NULL);
+        std::cout << "SHOULD OPEN IM" << std::endl;
+        //m_xim = XOpenIM(m_display, NULL, NULL, NULL);
     }
 }
 

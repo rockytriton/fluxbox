@@ -590,7 +590,6 @@ void Fluxbox::handleEvent(XEvent * const e) {
 
     _FB_USES_NLS;
     m_last_event = *e;
-    fbdbg << "FB::HandleEvents" << std::endl;
 
 
     // it is possible (e.g. during moving) for a window
