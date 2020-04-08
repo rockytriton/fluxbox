@@ -26,6 +26,8 @@ int main(int argc, char **argv) {
 
     printf("WIN: %X\n", win);
 
+    XMapWindow(d, win);
+
     sleep(5);
 
     XCloseDisplay(d);
