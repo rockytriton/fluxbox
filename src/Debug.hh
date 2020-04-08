@@ -1,6 +1,10 @@
 #ifndef DEBUG_HH
 #define DEBUG_HH
 
+#ifndef DEBUG
+#define DEBUG
+#endif
+
 #ifdef DEBUG
 #include <iostream>
 #define fbdbg std::cerr<<__FILE__<<"("<<__LINE__<< "): "
