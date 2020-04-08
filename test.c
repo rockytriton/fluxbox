@@ -52,6 +52,7 @@ int main(int argc, char **argv) {
         if (!XPending(d)) continue;
 
         XEvent ev;
+        XWindowChanges changes;
         XNextEvent(d, &ev);
 
         switch(ev.type) {
@@ -66,7 +67,6 @@ int main(int argc, char **argv) {
                 break;
 
             case ConfigureRequest:
-                XWindowChanges changes;
                 changes.x = ev.xconfigurerequest.x;
                 changes.y = ev.xconfigurerequest.y;
                 changes.width = ev.xconfigurerequest.width;
