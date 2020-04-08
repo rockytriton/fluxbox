@@ -62,7 +62,6 @@ App::App(const char *displayname):m_done(false), m_display(0) {
         displayname = 0;
 
     std::cout << "DISPLAY: " << (displayname == 0 ? "NULL" : displayname) << std::endl;
-    std::cerr << "DISPLAY: " << (displayname == 0 ? "NULL" : displayname) << std::endl;
     //*logger << "DISPLAY: " << (displayname == 0 ? "NULL" : displayname) << std::endl;
 
     m_display = XOpenDisplay(displayname);
@@ -98,10 +97,12 @@ void App::sync(bool discard) {
 }
 
 void App::eventLoop() {
+    std::cout << "\n\nSTARTING EVENT LOOP\n\n" << std::endl;
+
     XEvent ev;
     while (!m_done) {
         XNextEvent(display(), &ev);
-        fbdbg<<"App::eventLoop for 0x"<<hex<<ev.xmaprequest.window<<dec<<endl;
+        std::cout <<"App::eventLoop for 0x"<<hex<<ev.xmaprequest.window<<dec<<endl;
         EventManager::instance()->handleEvent(ev);
     }
 }
