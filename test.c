@@ -22,16 +22,18 @@ int main(int argc, char **argv) {
     int w = 200;
     int h = 200;
 
-    XAllowEvents(d, ReplayPointer, CurrentTime);
+    //XAllowEvents(d, ReplayPointer, CurrentTime);
 
-    
-    Window win = XCreateSimpleWindow(d, RootWindow(d, screenNum), 50, 50, w, h, 2, border, bg);
+    Window root = DefaultRootWindow(d);
 
     printf("WIN: %X\n", win);
 
-    XSelectInput(d, win, ButtonPressMask | ColormapChangeMask | EnterWindowMask | PropertyChangeMask |
+    XSelectInput(d, root, ButtonPressMask | ColormapChangeMask | EnterWindowMask | PropertyChangeMask |
                               SubstructureRedirectMask | KeyPressMask | KeyReleaseMask |
                               ButtonPressMask | ButtonReleaseMask| SubstructureNotifyMask);
+
+
+    Window win = XCreateSimpleWindow(d, root, 50, 50, w, h, 2, border, bg);
     XMapWindow(d, win);
 
     GC pen;
