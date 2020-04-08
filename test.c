@@ -22,6 +22,8 @@ int main(int argc, char **argv) {
     int w = 200;
     int h = 200;
 
+    XAllowEvents(d, ReplayPointer, CurrentTime);
+
     Window win = XCreateSimpleWindow(d, DefaultRootWindow(d), 50, 50, w, h, 2, border, bg);
 
     printf("WIN: %X\n", win);
