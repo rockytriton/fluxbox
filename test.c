@@ -28,7 +28,9 @@ int main(int argc, char **argv) {
 
     printf("WIN: %X\n", win);
 
-    XSelectInput(d, win, ButtonPressMask | StructureNotifyMask);
+    XSelectInput(d, win, ButtonPressMask | ColormapChangeMask | EnterWindowMask | PropertyChangeMask |
+                              SubstructureRedirectMask | KeyPressMask | KeyReleaseMask |
+                              ButtonPressMask | ButtonReleaseMask| SubstructureNotifyMask);
     XMapWindow(d, win);
 
     GC pen;
