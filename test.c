@@ -65,6 +65,19 @@ int main(int argc, char **argv) {
                 printf("Expose\n");
                 break;
 
+            case ConfigureRequest:
+                XWindowChanges changes;
+                changes.x = ev.xconfigurerequest.x;
+                changes.y = ev.xconfigurerequest.y;
+                changes.width = ev.xconfigurerequest.width;
+                changes.height = ev.xconfigurerequest.height;
+                changes.border_width = ev.xconfigurerequest.border_width;
+                changes.sibling = ev.xconfigurerequest.above;
+                changes.stack_mode = ev.xconfigurerequest.detail;
+                XConfigureWindow(d, ev.xconfigurerequest.window, ev.xconfigurerequest.value_mask, &changes);
+                printf("CONFIGURED\n");
+                break;
+
             case ConfigureNotify:
                 if (w != ev.xconfigure.width || h != ev.xconfigure.height) {
                     w = ev.xconfigure.width;
