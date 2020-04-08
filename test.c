@@ -29,18 +29,50 @@ int main(int argc, char **argv) {
     XSelectInput(d, win, ButtonPressMask | StructureNotifyMask);
     XMapWindow(d, win);
 
-    //sleep(5);
+    GC pen;
+    XGCValues values;
 
+    values.foreground = WhitePixel(d, screenNum);
+    values.line_width = 1;
+    values.line_style = LineSolid;
+    pen = XCreateGC(d, win, GCForeground | GCLineWidth | GCLineStyle, &values);
 
     printf("Events...\n");
 
-    while(1) {
+    int done = 0;
+
+    while(!done) {
         XEvent ev;
         XNextEvent(d, &ev);
+
+        switch(ev.type) {
+            case ButtonPress:
+                done = 1;
+                break;
+
+            case Expose:
+                XDrawLine(d, win, pen, 0, 0, w, h);
+                XDrawLine(d, win, pen, w, 0, 0, h);
+                break;
+
+            case ConfigureNotify:
+                if (w != ev.xconfigure.width || h != ev.xconfigure.height) {
+                    w = ev.xconfigure.width;
+                    h = ev.xconfigure.h;
+                    XClearWindow(d, ev.xany.window);
+                    printf("Resized\n");
+                }
+                break;
+
+            default:
+                printf("XEvent: %d\n", ev.type);
+        }
 
         if (ev.type == ButtonPress) {
             printf("PRESS\n");
             break;
+        } else if (ev.type != 0) {
+            printf("XEvent: %d\n", ev.type);
         }
     }
 
