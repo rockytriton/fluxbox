@@ -24,6 +24,7 @@
 #include "Font.hh"
 #include "Image.hh"
 #include "EventManager.hh"
+#include "Debug.hh"
 
 #include <cstring>
 #include <cstdlib>
@@ -33,6 +34,9 @@
 #include <fstream>
 
 //extern std::ofstream *logger;
+using std::hex;
+using std::dec;
+using std::endl;
 
 namespace FbTk {
 
@@ -97,6 +101,7 @@ void App::eventLoop() {
     XEvent ev;
     while (!m_done) {
         XNextEvent(display(), &ev);
+        fbdbg<<"App::eventLoop for 0x"<<hex<<ev.xmaprequest.window<<dec<<endl;
         EventManager::instance()->handleEvent(ev);
     }
 }
