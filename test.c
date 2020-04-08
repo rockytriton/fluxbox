@@ -26,7 +26,6 @@ int main(int argc, char **argv) {
 
     Window root = DefaultRootWindow(d);
 
-    printf("WIN: %X\n", win);
 
     XSelectInput(d, root, ButtonPressMask | ColormapChangeMask | EnterWindowMask | PropertyChangeMask |
                               SubstructureRedirectMask | KeyPressMask | KeyReleaseMask |
@@ -34,6 +33,7 @@ int main(int argc, char **argv) {
 
 
     Window win = XCreateSimpleWindow(d, root, 50, 50, w, h, 2, border, bg);
+    printf("WIN: %X\n", win);
     XMapWindow(d, win);
 
     GC pen;
