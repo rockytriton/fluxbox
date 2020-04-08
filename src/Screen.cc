@@ -1162,6 +1162,7 @@ FluxboxWindow *BScreen::createWindow(Window client) {
             if (workspace)
                 workspace->updateClientmenu();
         } else {
+            fbdbg<<"CREATEWIN 1"<<endl;
             win = new FluxboxWindow(*winclient);
 
             if (!win->isManaged()) {
@@ -1198,6 +1199,7 @@ FluxboxWindow *BScreen::createWindow(WinClient &client) {
         return 0;
     }
 
+    fbdbg<<"CREATEWIN 2"<<endl;
     FluxboxWindow *win = new FluxboxWindow(client);
 
 #ifdef SLIT
