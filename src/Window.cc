@@ -306,6 +306,8 @@ FluxboxWindow::FluxboxWindow(WinClient &client):
     m_parent(client.screen().rootWindow()),
     m_resize_corner(RIGHTBOTTOM) {
 
+    std::cout << "FLUXBOX WIN" << std::endl;
+
     join(m_theme.reconfigSig(), FbTk::MemFun(*this, &FluxboxWindow::themeReconfigured));
     join(m_frame.frameExtentSig(), FbTk::MemFun(*this, &FluxboxWindow::frameExtentChanged));
 

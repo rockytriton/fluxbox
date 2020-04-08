@@ -26,6 +26,8 @@
 
 #include "FbTk/ImageControl.hh"
 
+#include <iostream>
+
 void OSDWindow::reconfigTheme() {
 
     setBorderWidth(m_theme->border().width());
@@ -77,6 +79,8 @@ void OSDWindow::showText(const FbTk::BiDiString &text) {
 void OSDWindow::show() {
     if (m_visible)
         return;
+
+    std::cout << "SHOWN" << std::endl;
 
     m_visible = true;
     unsigned int head = m_screen.getCurrHead();

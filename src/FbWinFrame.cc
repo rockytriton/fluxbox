@@ -41,6 +41,7 @@
 #include <X11/X.h>
 
 #include <algorithm>
+#include <iostream>
 
 using std::max;
 using std::mem_fun;
@@ -147,6 +148,8 @@ FbWinFrame::FbWinFrame(BScreen &screen, unsigned int client_depth,
     m_need_render(true),
     m_button_size(1),
     m_shape(m_window, theme->shapePlace()) {
+
+    std::cout << "WIN FRAME" << std::endl;
 
     init();
 }
