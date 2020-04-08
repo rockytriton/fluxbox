@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
     XSelectInput(d, win, ButtonPressMask | StructureNotifyMask);
     XMapWindow(d, win);
 
-    sleep(5);
+    //sleep(5);
 
 
     printf("Events...\n");
