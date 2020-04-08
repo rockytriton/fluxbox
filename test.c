@@ -26,11 +26,26 @@ int main(int argc, char **argv) {
 
     printf("WIN: %X\n", win);
 
+    XSelectInput(d, win, ButtonPressMask | StructureNotifyMask);
     XMapWindow(d, win);
 
     sleep(5);
 
+
+    printf("Events...\n");
+
+    while(1) {
+        XEvent ev;
+        XNextEvent(d, &ev);
+
+        if (ev.type == ButtonPress) {
+            printf("PRESS\n");
+            break;
+        }
+    }
+
     XCloseDisplay(d);
+
 
     return 0;
 
