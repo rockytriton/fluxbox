@@ -24,7 +24,8 @@ int main(int argc, char **argv) {
 
     XAllowEvents(d, ReplayPointer, CurrentTime);
 
-    Window win = XCreateSimpleWindow(d, DefaultRootWindow(d), 50, 50, w, h, 2, border, bg);
+    
+    Window win = XCreateSimpleWindow(d, RootWindow(d, screenNum), 50, 50, w, h, 2, border, bg);
 
     printf("WIN: %X\n", win);
 
